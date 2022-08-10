@@ -43,6 +43,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
     Date dueDate;
     SharedViewModel sharedViewModel;
     private boolean isEdit;
+    private Priority priority = Priority.LOW;
 
 
     public BottomSheetFragment(){
@@ -105,13 +106,13 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         saveButton.setOnClickListener(view1 -> {
             String taskText = enterTodo.getText().toString().trim();
                 if(!TextUtils.isEmpty(taskText) && dueDate != null){
-                    Task task = new Task(taskText, Priority.HIGH, dueDate,
+                    Task task = new Task(taskText, priority, dueDate,
                             Calendar.getInstance().getTime(), false);
 
                     if(isEdit){
                         Task updateTask = sharedViewModel.getSelectedItem().getValue();
                         updateTask.setCreateAt(Calendar.getInstance().getTime());
-                        updateTask.setPriority(Priority.HIGH);
+                        updateTask.setPriority(priority);
                         updateTask.setTask(taskText);
                         updateTask.setDueDate(dueDate);
                         TaskViewModel.update(updateTask);
@@ -129,6 +130,26 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
                 else{
                     Snackbar.make(saveButton, R.string.empty_field, Snackbar.LENGTH_LONG).show();
                 }
+        });
+
+        priorityButton.setOnClickListener(view1 ->{
+            Utils.hideSoftKeyboard(view1);
+            priorityRadioGroup.setVisibility(
+                    priorityRadioGroup.getVisibility() == View.GONE ? View.VISIBLE : View.GONE
+            );
+            priorityRadioGroup.setOnCheckedChangeListener((radioGroup, checkedId) -> {
+                selectedButtonId = checkedId;
+                selectedRadioButton = view.findViewById(selectedButtonId);
+
+                if(priorityRadioGroup.getVisibility() == View.VISIBLE){
+                    if(selectedRadioButton.getId() == R.id.radioButton_high)
+                        priority = Priority.HIGH;
+                    else if(selectedRadioButton.getId() == R.id.radioButton_med)
+                        priority = Priority.MEDIUM;
+                    else
+                        priority = Priority.LOW;
+                }
+            });
         });
     }
 
