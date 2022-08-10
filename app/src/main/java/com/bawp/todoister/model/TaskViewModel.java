@@ -31,7 +31,7 @@ public class TaskViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
-    public void update(Task task){
+    public static void update(Task task){
         repository.update(task);
     }
     public LiveData<List<Task>> getAllTasks(){
