@@ -4,31 +4,23 @@ import android.os.Bundle;
 
 import com.bawp.todoister.adapter.OnTodoClickListener;
 import com.bawp.todoister.adapter.RecyclerViewAdapter;
-import com.bawp.todoister.data.TaskDao;
-import com.bawp.todoister.model.Priority;
 import com.bawp.todoister.model.Task;
 import com.bawp.todoister.model.TaskViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnTodoClickListener {
@@ -103,7 +95,12 @@ public class MainActivity extends AppCompatActivity implements OnTodoClickListen
     }
 
     @Override
-    public void onTodoClick(int AdapterPostion, Task task) {
+    public void onTodoClick(Task task) {
         Log.d("click", "TheClicked: " + task.getTask());
+    }
+
+    @Override
+    public void onRadioButtonClick(Task task){
+    taskViewModel.delete(task);
     }
 }

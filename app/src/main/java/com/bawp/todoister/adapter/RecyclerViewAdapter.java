@@ -62,16 +62,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.todoClickListener = onTodoClickListener;
 
             itemView.setOnClickListener(this);
+            radioButton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             int viewId = view.getId();
-            if(viewId == R.id.todo_row_layout){
-                Task task = taskList.get(getAdapterPosition());
-                todoClickListener.onTodoClick(getAdapterPosition(), task);
+            Task task = taskList.get(getAdapterPosition());
+            if(viewId == R.id.todo_row_layout)
+                todoClickListener.onTodoClick(task);
+            else if(viewId == R.id.todo_radio_button)
+                todoClickListener.onRadioButtonClick(task);
             }
 
-        }
     }
 }
