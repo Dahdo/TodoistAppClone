@@ -15,6 +15,7 @@ import com.bawp.todoister.model.Priority;
 import com.bawp.todoister.model.Task;
 import com.bawp.todoister.model.TaskViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.chip.Chip;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
@@ -22,9 +23,7 @@ import androidx.constraintlayout.widget.Group;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.bawp.todoister.model.Task;
-
-public class BottomSheetFragment extends BottomSheetDialogFragment {
+public class BottomSheetFragment extends BottomSheetDialogFragment implements View.OnClickListener{
     private EditText enterTodo;
     private ImageButton calendarButton;
     private ImageButton priorityButton;
@@ -58,6 +57,12 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         calendarGroup = view.findViewById(R.id.calendar_group);
         calendarView = view.findViewById(R.id.calendar_view);
 
+        Chip todayChip = view.findViewById(R.id.today_chip);
+        todayChip.setOnClickListener(this);
+        Chip tomorrowChip = view.findViewById(R.id.tomorrow_chip);
+        tomorrowChip.setOnClickListener(this);
+        Chip nextWeekChip = view.findViewById(R.id.next_week_chip);
+        nextWeekChip.setOnClickListener(this);
         return view;
     }
 
@@ -86,6 +91,25 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             }
 
         });
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        int viewId = view.getId();
+
+        if(viewId == R.id.today_chip){
+            calendar.add(Calendar.DAY_OF_YEAR, 0);
+            dueDate = calendar.getTime();
+        }
+        else if(viewId == R.id.tomorrow_chip){
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            dueDate = calendar.getTime();
+        }
+        else if(viewId == R.id.next_week_chip){
+            calendar.add(Calendar.DAY_OF_YEAR, 7);
+            dueDate = calendar.getTime();
+        }
 
     }
 }
