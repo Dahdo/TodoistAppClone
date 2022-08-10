@@ -7,11 +7,13 @@ import com.bawp.todoister.data.TaskDao;
 import com.bawp.todoister.model.Priority;
 import com.bawp.todoister.model.Task;
 import com.bawp.todoister.model.TaskViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
     private int counter;
+    BottomSheetFragment bottomSheetFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +53,19 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        bottomSheetFragment = new BottomSheetFragment();
+        ConstraintLayout constraintLayout = findViewById(R.id.bottomSheet);
+        BottomSheetBehavior<ConstraintLayout> bottomSheetBehavior = BottomSheetBehavior.from(constraintLayout);
+        bottomSheetBehavior.setPeekHeight(BottomSheetBehavior.STATE_HIDDEN);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
-            Task task = new Task("Go to bed" + ++counter, Priority.HIGH, Calendar.getInstance().getTime(),
-                    Calendar.getInstance().getTime(), true);
-            taskViewModel.insert(task);
+//            Task task = new Task("Go to bed" + ++counter, Priority.HIGH, Calendar.getInstance().getTime(),
+//                    Calendar.getInstance().getTime(), true);
+//            taskViewModel.insert(task);
+            showBottomSheetFragment();
+
         });
 
         taskViewModel.getAllTasks().observe(this, tasks -> {
@@ -63,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
            recyclerView.setAdapter(recyclerViewAdapter);
         });
 
+    }
+
+    private void showBottomSheetFragment(){
+        bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 
     @Override

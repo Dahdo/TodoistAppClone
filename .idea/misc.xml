@@ -10,6 +10,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/bottom_sheet.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.1526268115942029" />
         <entry key="app/src/main/res/layout/todo_row.xml" value="0.1" />
       </map>
     </option>
