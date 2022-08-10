@@ -13,7 +13,7 @@
 
 
     <EditText
-        android:id="@+id/enter_todo_et"
+        android:id="@+id/enter_todo_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_16"
@@ -33,7 +33,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/image_description"
         app:layout_constraintStart_toEndOf="@+id/today_calendar_button"
-        app:layout_constraintTop_toBottomOf="@+id/enter_todo_et"
+        app:layout_constraintTop_toBottomOf="@+id/enter_todo_text"
         app:srcCompat="@drawable/ic_baseline_outlined_flag_24"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toEndOf="@+id/priority_todo_button"
-        app:layout_constraintTop_toBottomOf="@+id/enter_todo_et"
+        app:layout_constraintTop_toBottomOf="@+id/enter_todo_text"
         app:srcCompat="@drawable/ic_baseline_arrow_circle_up_24" />
 
     <ImageButton
@@ -61,7 +61,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/image_description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_todo_et"
+        app:layout_constraintTop_toBottomOf="@+id/enter_todo_text"
         app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
     <com.google.android.material.chip.Chip
