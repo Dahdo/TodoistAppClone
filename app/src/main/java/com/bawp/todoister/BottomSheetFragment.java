@@ -16,6 +16,7 @@ import com.bawp.todoister.model.Priority;
 import com.bawp.todoister.model.SharedViewModel;
 import com.bawp.todoister.model.Task;
 import com.bawp.todoister.model.TaskViewModel;
+import com.bawp.todoister.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.snackbar.Snackbar;
@@ -88,6 +89,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         calendarButton.setOnClickListener(view1 -> {
+            Utils.hideSoftKeyboard(view1);
             calendarGroup.setVisibility(
                     calendarGroup.getVisibility() == View.GONE ? View.VISIBLE : View.GONE
             );
@@ -120,6 +122,12 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
                         TaskViewModel.insert(task);
                     }
 
+                    if(this.isVisible())
+                        this.dismiss();
+
+                }
+                else{
+                    Snackbar.make(saveButton, R.string.empty_field, Snackbar.LENGTH_LONG).show();
                 }
         });
     }
